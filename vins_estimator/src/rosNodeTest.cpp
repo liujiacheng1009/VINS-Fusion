@@ -20,6 +20,7 @@
 #include "estimator/estimator.h"
 #include "estimator/parameters.h"
 #include "utility/visualization.h"
+#include "nwlog/nwlog.h"
 
 Estimator estimator;
 
@@ -226,6 +227,9 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "vins_estimator");
     ros::NodeHandle n("~");
     ros::console::set_logger_level(ROSCONSOLE_DEFAULT_NAME, ros::console::levels::Info);
+
+    std::string log_path = "";
+    Vins::init_logging(argv[0], true, log_path, nwlog_level_e::NWLOG_INFO);
 
     if(argc != 2)
     {

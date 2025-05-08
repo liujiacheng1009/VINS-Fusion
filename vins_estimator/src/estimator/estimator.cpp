@@ -9,6 +9,7 @@
 
 #include "estimator.h"
 #include "../utility/visualization.h"
+#include "../nwlog/nwlog.h"
 
 Estimator::Estimator(): f_manager{Rs}
 {
@@ -1594,6 +1595,11 @@ void Estimator::updateLatestStates()
     latest_Bg = Bgs[frame_count];
     latest_acc_0 = acc_0;
     latest_gyr_0 = gyr_0;
+    NWLOG_LEVEL(vins, INFO, "vins_pos %f %f %f", latest_P.x(), latest_P.y(), latest_P.z());
+    NWLOG_LEVEL(vins, INFO, "vins_vel %f %f %f", latest_V.x(), latest_V.y(), latest_V.z());
+    
+    NWLOG_LEVEL(vins, INFO, "vins_ba %f %f %f", latest_Ba.x(), latest_Ba.y(), latest_Ba.z());
+    NWLOG_LEVEL(vins, INFO, "vins_bg %f %f %f", latest_Bg.x(), latest_Bg.y(), latest_Bg.z());
     mBuf.lock();
     queue<pair<double, Eigen::Vector3d>> tmp_accBuf = accBuf;
     queue<pair<double, Eigen::Vector3d>> tmp_gyrBuf = gyrBuf;
